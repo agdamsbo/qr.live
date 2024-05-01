@@ -1,0 +1,15 @@
+^renv$
+^renv\.lock$
+^LICENSE\.md$
+^.*\.Rproj$
+^\.Rproj\.user$
+
+
+troubles.R
+docs/shinylive/
+^data-raw$
+^app$
+^docs$
+^launch\.R$
+R/functions.R
+^CODE_OF_CONDUCT\.md$
