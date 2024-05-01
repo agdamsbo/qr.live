@@ -14,6 +14,8 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 - [ ] Options for ecl (value set to M for now)
 
+- [ ] Button to generate instead of reactive, for better shinylive performance
+
 - [ ] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
 
 - [ ] Choose output format
