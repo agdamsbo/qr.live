@@ -9,9 +9,7 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Imports: 
     shiny,
-    shinyWidgets,
-    qrcode,
-    shinythemes
+    qrcode
 Suggests: 
     here,
     devtools,
@@ -28,3 +26,5 @@ RoxygenNote: 7.3.1
 Depends: 
     R (>= 2.10)
 LazyData: true
+URL: https://github.com/agdamsbo/qr.live
+BugReports: https://github.com/agdamsbo/qr.live/issues
