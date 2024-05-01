@@ -33,7 +33,7 @@ Launch the included shiny app with the following code:
 
 ``` r
 library(qr.live)
-shiny_qr()
+shiny::runApp(appDir = here::here("app/"), launch.browser = TRUE)
 ```
 
 ## Code of Conduct
