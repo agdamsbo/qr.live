@@ -9,12 +9,12 @@ trim_link <- function(data) {
 }
 
 server <- function(input, output) {
-  tplot <- shiny::reactive({
-    qr <- qrcode::qr_code(trimws(input$link), ecl = "M")
-    plot(qr)
+  qr <- shiny::reactive({
+    qrcode::qr_code(trimws(input$link), ecl = "M")
   })
-  output$tplot <- shiny::renderPlot({
-    tplot()
+  
+  output$plot <- shiny::renderPlot({
+    plot(qr())
   })
 
   # downloadHandler contains 2 arguments as functions, namely filename, content
@@ -24,7 +24,10 @@ server <- function(input, output) {
     },
     # content is a function with argument file. content writes the plot to the device
     content = function(file) {
-      qrcode::generate_svg(qrcode::qr_code(trimws(input$link), ecl = "M"), filename = file)
+      qrcode::generate_svg(qrcode = qr(),
+                           foreground = input$ftcolor,
+                           background = input$bgcolor,
+                           filename = file,show = FALSE)
     }
   )
 }

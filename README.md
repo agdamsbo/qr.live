@@ -20,7 +20,9 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 - [ ] Choose output format
 
-- [ ] Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)
+- [x] ~Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)~ Added colors to SVG output
+
+- [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
 
 ## Installation an example use
 
