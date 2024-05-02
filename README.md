@@ -18,9 +18,9 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 - [ ] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
 
-- [ ] Choose output format
+- [x] ~Choose output format~ Both svg and png is available
 
-- [x] ~Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)~ Added colors to SVG output
+- [ ] ~Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)~ ~Added colors to SVG output~
 
 - [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
 

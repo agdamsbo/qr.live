@@ -8,7 +8,11 @@ trim_link <- function(data) {
   )
 }
 
+
+
 server <- function(input, output) {
+  # bslib::bs_themer()
+  
   qr <- shiny::reactive({
     qrcode::qr_code(trimws(input$link), ecl = "M")
   })
@@ -18,16 +22,31 @@ server <- function(input, output) {
   })
 
   # downloadHandler contains 2 arguments as functions, namely filename, content
-  output$save <- shiny::downloadHandler(
+  output$save_svg <- shiny::downloadHandler(
     filename = function() {
       paste0(trim_link(input$link), ".svg")
     },
     # content is a function with argument file. content writes the plot to the device
     content = function(file) {
       qrcode::generate_svg(qrcode = qr(),
-                           foreground = input$ftcolor,
-                           background = input$bgcolor,
+                           # foreground = input$ftcolor,
+                           # background = input$bgcolor,
                            filename = file,show = FALSE)
     }
+  )
+  
+  # downloadHandler contains 2 arguments as functions, namely filename, content
+  output$save_png <- shiny::downloadHandler(
+    filename = function() {
+      paste0(trim_link(input$link), ".png")
+    },
+    # content is a function with argument file. content writes the plot to the device
+    content = function(file) {
+      png(filename = file)
+      plot(qr())
+      dev.off()
+    }
+ 
+    
   )
 }
