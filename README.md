@@ -24,7 +24,7 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 - [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
 
-## Installation an example use
+## Installation and example use
 
 To use the package and run the shiny-app locally, you can install the development version of qr.live with:
 
