@@ -12,15 +12,15 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 - [x] Output SVG format
 
-- [ ] Options for ecl (value set to M for now)
+- [x] Options for ecl (value set to M for now)
 
 - [ ] Button to generate instead of reactive, for better shinylive performance
 
-- [ ] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
+- [x] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
 
-- [x] ~Choose output format~ Both svg and png is available
+- [x] ~~Choose output format~~ Both svg and png is available
 
-- [ ] ~Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)~ ~Added colors to SVG output~
+- [ ] Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)
 
 - [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
 

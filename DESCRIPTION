@@ -9,7 +9,10 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Imports: 
     shiny,
-    qrcode
+    qrcode,
+    rsvg,
+    png,
+    jpeg
 Suggests: 
     here,
     devtools,
