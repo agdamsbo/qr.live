@@ -13,3 +13,5 @@ docs/shinylive/
 ^launch\.R$
 R/functions.R
 ^CODE_OF_CONDUCT\.md$
+
+testing.R

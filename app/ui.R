@@ -129,13 +129,24 @@ ui <- shiny::fluidPage(
           )
         )
       ),
-      # shiny::textInput(inputId = "bgcolor",
-      #           label = "SVG Background Color",
-      #           value = "white"),
-      # shiny::textInput(inputId = "ftcolor",
-      #           label = "SVG QR Color",
-      #           value = "black"),
+      shiny::tags$hr(),
+      shiny::textInput(inputId = "bgcolor",
+                label = "Background Color",
+                value = "white"),
+      shiny::radioButtons(inputId = "transparent",
+                       label = "Transparent SVG Background",
+                       selected = FALSE,
+                       choices = list(
+                         "Yes" = TRUE,
+                         "No" = FALSE
+                       )),
+      shiny::textInput(inputId = "ftcolor",
+                label = "QR Color",
+                value = "black"),
       # shiny::h6("Use CSS colors. Use 'none' for transparent."),
+      shiny::tags$hr(),
+      # shiny::actionButton(inputId = "render", 
+      #                     label = "Generate Preview"),
       # shiny::tags$hr(),
       shiny::downloadButton(
         outputId = "save_svg",

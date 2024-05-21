@@ -16,3 +16,14 @@ trim_link <- function(data) {
     )
   )
 }
+
+#' Run local Shiny app for QR print
+#'
+#' @return shiny app
+#' @export
+#'
+#' @examples
+#' # shiny_qr()
+shiny_qr <- function(){
+  shiny::runApp(appDir = here::here("app/") ,launch.browser = TRUE)
+}

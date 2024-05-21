@@ -1,7 +1,7 @@
-
 # qr.live
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 I wanted to easily create a SVG QR code, which was not easily possible with other open tools. This was a nice case for a shinylive app.
@@ -10,19 +10,19 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 ## Wish list
 
-- [x] Output SVG format
+-   [x] Output SVG format
 
-- [x] Options for ecl (value set to M for now)
+-   [x] Options for ecl (value set to M for now)
 
-- [ ] Button to generate instead of reactive, for better shinylive performance
+-   [ ] Button to generate instead of reactive, for better shinylive performance. *Working on this.*
 
-- [x] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
+-   [x] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
 
-- [x] ~~Choose output format~~ Both svg and png is available
+-   [x] ~~Choose output format~~ Both svg and png is available
 
-- [ ] Edit [colors in app](https://github.com/Broccolito/QR_Code_Generator)
+-   [x] Edit colors in app [like here](https://github.com/Broccolito/QR_Code_Generator). Newest `qrcode` version implemented new plotting approach with colors included. Turned out to be easier than the linked example.
 
-- [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
+-   [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
 
 ## Installation and example use
 
