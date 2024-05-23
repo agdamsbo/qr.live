@@ -8,14 +8,20 @@ trim_link <- function(data) {
   )
 }
 
-
-
-
 server <- function(input, output) {
+  
   v <- shiny::reactiveValues(
     plot = NULL
   )
 
+  live_plot <- function(plot=v$plot, 
+                        col = c(input$bgcolor, input$ftcolor)){
+    plot(x = plot, col=col)
+  }
+  
+  #####
+  #### Pre-filled functions for easier coding
+  #####
   qr <- shiny::reactive({
     live_qr_code <- function(x = input$link,
                              ecl = input$ecl) {
@@ -53,6 +59,9 @@ server <- function(input, output) {
       )
     }
 
+    #####
+    #### Generating code
+    #####
 
     if (input$qr_type == "text") {
       if (input$logo_add == "n") {
@@ -80,22 +89,43 @@ server <- function(input, output) {
     out
   })
 
+  #####
+  #### Transfer for plot on button press
+  #####
   shiny::observeEvent(input$render, {
     v$plot <- qr()
   })
 
+  #####
+  #### Render available plot
+  #####
   output$plot <- shiny::renderPlot({
     if (is.null(v$plot)) {
       return()
     }
-    plot(v$plot,
-      col = c(
-        input$bgcolor,
-        input$ftcolor
-      )
-    )
+    live_plot()
+    # plot(v$plot,
+    #   col = c(
+    #     input$bgcolor,
+    #     input$ftcolor
+    #   )
+    # )
   })
 
+  output$rendered <- shiny::reactive({
+    if (is.null(v$plot)) {
+      "no"
+    } else {
+      "yes"
+    }
+  })
+  
+  #####
+  #### Generating output
+  #####
+  
+  shiny::outputOptions(output, 'rendered', suspendWhenHidden = FALSE)
+  
   # downloadHandler contains 2 arguments as functions, namely filename, content
   output$save_svg <- shiny::downloadHandler(
     filename = function() {
@@ -108,7 +138,7 @@ server <- function(input, output) {
     # content is a function with argument file. content writes the plot to the device
     content = function(file) {
       qrcode::generate_svg(
-        qrcode = qr(),
+        qrcode = v$plot,
         foreground = input$ftcolor,
         background = ifelse(input$transparent, "none", input$bgcolor),
         filename = file, show = FALSE
@@ -128,7 +158,7 @@ server <- function(input, output) {
     # content is a function with argument file. content writes the plot to the device
     content = function(file) {
       png(filename = file)
-      plot(qr(), col = c(input$bgcolor, input$ftcolor))
+      live_plot()
       dev.off()
     }
   )

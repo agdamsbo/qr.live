@@ -165,15 +165,22 @@ ui <- shiny::fluidPage(
       # shiny::h6("Use CSS colors. Use 'none' for transparent."),
       shiny::tags$hr(),
       shiny::h4("Choose output"),
-      shiny::downloadButton(
-        outputId = "save_svg",
-        label = "SVG",
-        icon = shiny::icon("vector-square")
+      shiny::conditionalPanel(
+        condition = "output.rendered=='no'",
+        shiny::p("Please create QR before saving")
       ),
-      shiny::downloadButton(
-        outputId = "save_png",
-        label = "PNG",
-        icon = shiny::icon("file-image")
+      shiny::conditionalPanel(
+        condition = "output.rendered=='yes'",
+        shiny::downloadButton(
+          outputId = "save_svg",
+          label = "SVG",
+          icon = shiny::icon("vector-square")
+        ),
+        shiny::downloadButton(
+          outputId = "save_png",
+          label = "PNG",
+          icon = shiny::icon("file-image")
+        )
       )
     ),
     shiny::mainPanel(
