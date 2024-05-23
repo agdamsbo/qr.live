@@ -10,26 +10,24 @@ I drew some inspiration from the [minimal working example here](https://stackove
 
 ## Wish list
 
--   [x] Output SVG format
+-   [x] Options for ecl ~~(value set to M for now)~~
 
--   [x] Options for ecl (value set to M for now)
-
--   [ ] Button to generate instead of reactive, for better shinylive performance. *Working on this.*
+-   [x] Button to generate instead of reactive, for better shinylive performance. *Solved with inspiration [from this tread](https://stackoverflow.com/questions/57242792/update-plot-output-on-actionbutton-click-event-in-r-shiny). Shinylive is still slow though.*
 
 -   [x] Create Wifi credentials (see [qifi](https://github.com/evgeni/qifi))
 
--   [x] ~~Choose output format~~ Both svg and png is available
+-   [x] ~~Choose output format~~ Both svg and png is available.
 
--   [x] Edit colors in app [like here](https://github.com/Broccolito/QR_Code_Generator). Newest `qrcode` version implemented new plotting approach with colors included. Turned out to be easier than the linked example.
+-   [x] Edit colors in app [like here](https://github.com/Broccolito/QR_Code_Generator). *Newest `qrcode` version implemented new plotting approach with colors included. Turned out to be easier than the linked example.*
 
--   [ ] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html).
+-   [x] Add other features from [`qrcode`](https://thierryo.github.io/qrcode/index.html). *Logo can be added to both link and wifi qr. Might consider adding other features if ever necessary.*
 
 ## Installation and example use
 
 To use the package and run the shiny-app locally, you can install the development version of qr.live with:
 
 ``` r
-# install.packages("devtools")
+# install.packages("devtools")w
 devtools::install_github("agdamsbo/qr.live")
 ```
 

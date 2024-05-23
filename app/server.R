@@ -12,51 +12,90 @@ trim_link <- function(data) {
 
 
 server <- function(input, output) {
-  # qr <- shiny::observeEvent(input$render, {
-    qr <- shiny::reactive({
-      if (input$qr_type == "text") {
-        out <- qrcode::qr_code(trimws(input$link), ecl = input$ecl)
-        if (!is.null(input$logo)) {
-          out <- qrcode::add_logo(
-            code = qrcode::qr_code(trimws(input$link), ecl = list("s" = "M", "m" = "Q", "l" = "H")[[input$logo_size]]),
-            logo = input$logo$datapath,
-            ecl = "L",
-            hjust = input$hjust,
-            vjust = input$vjust
+  v <- shiny::reactiveValues(
+    plot = NULL
+  )
+
+  qr <- shiny::reactive({
+    live_qr_code <- function(x = input$link,
+                             ecl = input$ecl) {
+      qrcode::qr_code(
+        x = trimws(x),
+        ecl = ecl
+      )
+    }
+
+    live_qr_wifi <- function(ssid = input$ssid,
+                             encryption,
+                             key = input$key,
+                             hidden = input$hidden,
+                             ecl = input$ecl_wifi) {
+      qrcode::qr_wifi(
+        ssid = ssid,
+        encryption = encryption,
+        key = key,
+        hidden = hidden,
+        ecl = ecl
+      )
+    }
+
+    live_qr_logo <- function(code,
+                             logo = input$logo$datapath,
+                             ecl = "L",
+                             hjust = input$hjust,
+                             vjust = input$vjust) {
+      qrcode::add_logo(
+        code = code,
+        logo = logo,
+        ecl = ecl,
+        hjust = hjust,
+        vjust = vjust
+      )
+    }
+
+
+    if (input$qr_type == "text") {
+      if (input$logo_add == "n") {
+        out <- live_qr_code()
+      } else if (input$logo_add == "y") {
+        out <- live_qr_logo(
+          code = live_qr_code(
+            ecl = list("s" = "M", "m" = "Q", "l" = "H")[[input$logo_size]]
           )
-        }
-      } else if (input$qr_type == "wifi") {
-        if (input$encryption %in% c("WPA", "WEP")) enc <- input$encryption else enc <- NULL
-        out <- qrcode::qr_wifi(
-          ssid = input$ssid,
-          encryption = enc,
-          key = input$key,
-          hidden = input$hidden,
-          ecl = input$ecl_wifi
         )
       }
-    plot(out, col = c(input$bgcolor, input$ftcolor))
-      
-    })
-  # })
+    } else if (input$qr_type == "wifi") {
+      if (input$encryption %in% c("WPA", "WEP")) enc <- input$encryption else enc <- NULL
+      if (input$logo_add == "n") {
+        out <- live_qr_wifi(encryption = enc)
+      } else if (input$logo_add == "y") {
+        out <- live_qr_logo(
+          code = live_qr_wifi(
+            encryption = enc,
+            ecl = list("s" = "M", "m" = "Q", "l" = "H")[[input$logo_size]]
+          )
+        )
+      }
+    }
+    out
+  })
 
-  # shiny::reactive(input$render, {
-  #   output$plot <- shiny::renderPlot({
-  #     plot(qr(),col=c(input$bgcolor,input$ftcolor))
-  #   })
-  # })
+  shiny::observeEvent(input$render, {
+    v$plot <- qr()
+  })
 
-    #inspiration: https://stackoverflow.com/questions/57242792/update-plot-output-on-actionbutton-click-event-in-r-shiny
-    
-  # output$plot <- shiny::renderPlot({
-  #   if (is.null(v$plot)) return()
-  #   qr
-  # })
+  output$plot <- shiny::renderPlot({
+    if (is.null(v$plot)) {
+      return()
+    }
+    plot(v$plot,
+      col = c(
+        input$bgcolor,
+        input$ftcolor
+      )
+    )
+  })
 
-    output$plot <- shiny::renderPlot({
-      qr()
-    })
-    
   # downloadHandler contains 2 arguments as functions, namely filename, content
   output$save_svg <- shiny::downloadHandler(
     filename = function() {

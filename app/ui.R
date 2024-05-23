@@ -4,6 +4,12 @@ ui <- shiny::fluidPage(
   ),
   shiny::sidebarLayout(
     shiny::sidebarPanel(
+      shiny::actionButton(
+        inputId = "render",
+        label = "Create QR",
+        icon = shiny::icon("qrcode"), width = "100%"
+      ),
+      shiny::tags$hr(),
       shiny::radioButtons(
         inputId = "qr_type",
         label = "What kind of QR code?",
@@ -30,59 +36,6 @@ ui <- shiny::fluidPage(
             "Medium (15 %)" = "M",
             "Q (25 %)" = "Q",
             "High (30 %)" = "H"
-          )
-        ),
-        shiny::radioButtons(
-          inputId = "logo_add",
-          label = "Add logo?",
-          selected = "n",
-          choices = list(
-            "Yes" = "y",
-            "No" = "n"
-          )
-        ),
-        shiny::conditionalPanel(
-          condition = "input.logo_add=='y'",
-          shiny::fileInput(
-            inputId = "logo",
-            label = "Upload logo file (optional)",
-            multiple = FALSE,
-            accept = c(
-              "png",
-              "svg",
-              "jpeg",
-              "jpg"
-            )
-          ),
-          shiny::radioButtons(
-            inputId = "logo_size",
-            label = "Logo size (optional)",
-            selected = "l",
-            choices = list(
-              "Small" = "s",
-              "Medium" = "m",
-              "Large" = "l"
-            )
-          ),
-          shiny::radioButtons(
-            inputId = "hjust",
-            label = "Horisontal position",
-            selected = "l",
-            choices = list(
-              "Right" = "r",
-              "Center" = "c",
-              "Left" = "l"
-            )
-          ),
-          shiny::radioButtons(
-            inputId = "vjust",
-            label = "Vertical position",
-            selected = "l",
-            choices = list(
-              "Top" = "t",
-              "Center" = "c",
-              "Buttom" = "b"
-            )
           )
         )
       ),
@@ -130,31 +83,97 @@ ui <- shiny::fluidPage(
         )
       ),
       shiny::tags$hr(),
-      shiny::textInput(inputId = "bgcolor",
-                label = "Background Color",
-                value = "white"),
-      shiny::radioButtons(inputId = "transparent",
-                       label = "Transparent SVG Background",
-                       selected = FALSE,
-                       choices = list(
-                         "Yes" = TRUE,
-                         "No" = FALSE
-                       )),
-      shiny::textInput(inputId = "ftcolor",
-                label = "QR Color",
-                value = "black"),
+      #####
+      #### Add logo
+      #####
+      shiny::radioButtons(
+        inputId = "logo_add",
+        label = "Add logo? (Slow with shinylive)",
+        selected = "n",
+        choices = list(
+          "Yes" = "y",
+          "No" = "n"
+        )
+      ),
+      shiny::conditionalPanel(
+        condition = "input.logo_add=='y'",
+        shiny::fileInput(
+          inputId = "logo",
+          label = "Upload logo file",
+          multiple = FALSE,
+          accept = c(
+            "png",
+            "svg",
+            "jpeg",
+            "jpg"
+          )
+        ),
+        shiny::radioButtons(
+          inputId = "logo_size",
+          label = "Logo size",
+          selected = "l",
+          choices = list(
+            "Small" = "s",
+            "Medium" = "m",
+            "Large" = "l"
+          )
+        ),
+        shiny::radioButtons(
+          inputId = "hjust",
+          label = "Horisontal position",
+          selected = "c",
+          choices = list(
+            "Right" = "r",
+            "Center" = "c",
+            "Left" = "l"
+          )
+        ),
+        shiny::radioButtons(
+          inputId = "vjust",
+          label = "Vertical position",
+          selected = "c",
+          choices = list(
+            "Top" = "t",
+            "Center" = "c",
+            "Buttom" = "b"
+          )
+        )
+      ),
+      shiny::tags$hr(),
+      #####
+      #### Specify colors
+      #####
+      shiny::textInput(
+        inputId = "bgcolor",
+        label = "Background Color",
+        value = "white"
+      ),
+      shiny::radioButtons(
+        inputId = "transparent",
+        label = "Transparent SVG Background",
+        selected = FALSE,
+        choices = list(
+          "Yes" = TRUE,
+          "No" = FALSE
+        )
+      ),
+      shiny::textInput(
+        inputId = "ftcolor",
+        label = "QR Color",
+        value = "black"
+      ),
       # shiny::h6("Use CSS colors. Use 'none' for transparent."),
       shiny::tags$hr(),
-      # shiny::actionButton(inputId = "render", 
-      #                     label = "Generate Preview"),
-      # shiny::tags$hr(),
+      shiny::h4("Choose output"),
       shiny::downloadButton(
         outputId = "save_svg",
-        label = "Download SVG"
+        label = "SVG",
+        icon = shiny::icon("vector-square")
       ),
       shiny::downloadButton(
         outputId = "save_png",
-        label = "Download PNG"
+        label = "PNG",
+        icon = shiny::icon("file-image")
       )
     ),
     shiny::mainPanel(
